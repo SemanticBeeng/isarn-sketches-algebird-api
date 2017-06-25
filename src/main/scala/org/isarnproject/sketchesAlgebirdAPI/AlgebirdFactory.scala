@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Erik Erlandson
+Copyright 2016-2017 Erik Erlandson
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,18 +26,21 @@ import org.isarnproject.sketches.TDigest
 object AlgebirdFactory {
   /**
    * Obtain a new Monoid type-class object based on TDigest
-   * @return A new Monoid with respect to a TDigest with default sketch resolution
+   * @return A new Monoid with respect to a TDigest with default sketch parameters
    */
-  def tDigestMonoid: Monoid[TDigest] = tDigestMonoid(TDigest.deltaDefault)
+  def tDigestMonoid: Monoid[TDigest] = tDigestMonoid()
 
   /**
    * Obtain a new Monoid type-class object based on TDigest
    * @param delta The TDigest sketch resolution parameter
-   * @return A new Monoid with respect to a TDigest with the given delta
+   * @param maxDiscrete The TDigest maxDiscrete parameter
+   * @return A new Monoid with respect to a TDigest with the given parameters
    */
-  def tDigestMonoid(delta: Double): Monoid[TDigest] =
+  def tDigestMonoid(
+      delta: Double = TDigest.deltaDefault,
+      maxDiscrete: Int = 0): Monoid[TDigest] =
     new Monoid[TDigest] {
-      def zero = TDigest.empty(delta)
+      def zero = TDigest.empty(delta, maxDiscrete)
       def plus(x: TDigest, y: TDigest): TDigest = x ++ y      
     }
 
@@ -45,19 +48,21 @@ object AlgebirdFactory {
    * Obtain an Aggregator for sketching data of a given numeric type, using a TDigest sketch
    * @tparam N the numeric type to be aggregated
    * @return An Aggregator that sketches data of type N using TDigest, with default sketch
-   * resolution parameter delta
+   * parameter values
    */
   def tDigestAggregator[N](implicit num: Numeric[N]): MonoidAggregator[N, TDigest, TDigest] =
-    tDigestAggregator[N](TDigest.deltaDefault)
+    tDigestAggregator[N]()
 
   /**
    * Obtain an Aggregator for sketching data of a given numeric type, using a TDigest sketch
    * @tparam N the numeric type to be aggregated
    * @param delta the TDigest sketch resolution parameter
+   * @param maxDiscrete The TDigest maxDiscrete parameter
    * @return An Aggregator that sketches data of type N using TDigest, with the given sketch
-   * resolution parameter delta
+   * parameter values
    */
-  def tDigestAggregator[N](delta: Double)(implicit num: Numeric[N]):
-      MonoidAggregator[N, TDigest, TDigest]
-    = Aggregator.appendMonoid((t: TDigest, x: N) => t + x)(tDigestMonoid(delta))
+  def tDigestAggregator[N](
+      delta: Double = TDigest.deltaDefault,
+      maxDiscrete: Int = 0)(implicit num: Numeric[N]): MonoidAggregator[N, TDigest, TDigest]
+    = Aggregator.appendMonoid((t: TDigest, x: N) => t + x)(tDigestMonoid(delta, maxDiscrete))
 }

@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Erik Erlandson
+Copyright 2016-2017 Erik Erlandson
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package org.isarnproject.sketchesAlgebirdAPI
+package org.isarnproject
 
 import scala.language.implicitConversions
 
@@ -25,13 +25,13 @@ import org.isarnproject.sketches.TDigest
 /**
  * Implicit definitions for Algebird objects based on TDigest
  */
-object implicits {
+package object sketchesAlgebirdAPI {
   private val tDigestMonoid = AlgebirdFactory.tDigestMonoid
 
   /**
    * Implicit definition of TDigest as an Algebird Monoid
-   * @note the implicit Monoid[TDigest] uses default sketch resolution parameter delta.
-   * See AlgebirdFactory for non-default delta values
+   * @note the implicit Monoid[TDigest] uses default sketch parameters.
+   * See AlgebirdFactory for non-default parameter values
    */
   implicit def tDigestMonoidImplicit: Monoid[TDigest] = tDigestMonoid
 }

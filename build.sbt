@@ -4,16 +4,16 @@ organization := "org.isarnproject"
 
 bintrayOrganization := Some("isarn")
 
-version := "0.0.2"
+version := "0.1.0"
 
-scalaVersion := "2.10.6"
+scalaVersion := "2.11.8"
 
 crossScalaVersions := Seq("2.10.6", "2.11.8")
 
 def commonSettings = Seq(
   libraryDependencies ++= Seq(
-    "org.isarnproject" %% "isarn-sketches" % "0.0.2",
-    "com.twitter" %% "algebird-core" % "0.12.3",
+    "org.isarnproject" %% "isarn-sketches" % "0.1.0",
+    "com.twitter" %% "algebird-core" % "0.13.0",
     "org.isarnproject" %% "isarn-scalatest" % "0.0.1" % Test,
     "org.scalatest" %% "scalatest" % "2.2.4" % Test,
     "org.apache.commons" % "commons-math3" % "3.6.1" % Test)
