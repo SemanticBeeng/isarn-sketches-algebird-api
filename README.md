@@ -6,21 +6,8 @@ https://isarn.github.io/isarn-sketches-algebird-api/latest/api/
 
 ### How to use in your project
 
-#### sbt
 ``` scala
-resolvers += "isarn project" at "https://dl.bintray.com/isarn/maven/"
-
-libraryDependencies += "org.isarnproject" %% "isarn-sketches-algebird-api" % "0.1.0"
-```
-
-#### maven
-``` xml
-<dependency> 
-  <groupId>org.isarnproject</groupId>
-  <artifactId>isarn-sketches-algebird-api_2.10</artifactId> 
-  <version>0.1.0</version> 
-  <type>pom</type> 
-</dependency>
+libraryDependencies += "org.isarnproject" %% "isarn-sketches-algebird-api" % "0.1.1"
 ```
 
 ### Algebird Aggregators with TDigest
