@@ -1,16 +1,16 @@
+// xsbt clean unidoc previewSite
+// xsbt clean unidoc ghpagesPushSite
+// xsbt -Dsbt.global.base=/home/eje/.sbt/sonatype +publish
+
 name := "isarn-sketches-algebird-api"
 
 organization := "org.isarnproject"
 
-bintrayOrganization := Some("isarn")
+version := "0.1.2"
 
-version := "0.1.1"
+scalaVersion := "2.11.12"
 
-scalaVersion := "2.11.8"
-
-crossScalaVersions := Seq("2.10.6", "2.11.8")
-
-useGpg := true
+crossScalaVersions := Seq("2.11.12", "2.12.6")
 
 pomIncludeRepository := { _ => false }
 
@@ -44,28 +44,21 @@ developers := List(
   )
 )
 
-def commonSettings = Seq(
-  libraryDependencies ++= Seq(
-    "org.isarnproject" %% "isarn-sketches" % "0.1.1",
-    "com.twitter" %% "algebird-core" % "0.13.0",
-    "org.isarnproject" %% "isarn-scalatest" % "0.0.2" % Test,
-    "org.scalatest" %% "scalatest" % "2.2.4" % Test,
-    "org.apache.commons" % "commons-math3" % "3.6.1" % Test)
-)
-
-seq(commonSettings:_*)
+libraryDependencies ++= Seq(
+  "org.isarnproject" %% "isarn-sketches" % "0.1.2" % Provided,
+  "com.twitter" %% "algebird-core" % "0.13.4" % Provided,
+  "org.isarnproject" %% "isarn-scalatest" % "0.0.3" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.5" % Test,
+  "org.apache.commons" % "commons-math3" % "3.6.1" % Test)
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
 scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value+"/root-doc.txt")
 
-site.settings
+enablePlugins(ScalaUnidocPlugin, GhpagesPlugin)
 
-site.includeScaladoc()
+siteSubdirName in ScalaUnidoc := "latest/api"
 
-// Re-enable if/when we want to support gh-pages w/ jekyll
-// site.jekyllSupport()
-
-ghpages.settings
+addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), siteSubdirName in ScalaUnidoc)
 
 git.remoteRepo := "git@github.com:isarn/isarn-sketches-algebird-api.git"

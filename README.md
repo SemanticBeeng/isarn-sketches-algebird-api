@@ -7,7 +7,14 @@ https://isarn.github.io/isarn-sketches-algebird-api/latest/api/
 ### How to use in your project
 
 ``` scala
-libraryDependencies += "org.isarnproject" %% "isarn-sketches-algebird-api" % "0.1.1"
+libraryDependencies += "org.isarnproject" %% "isarn-sketches-algebird-api" % "0.1.2"
+```
+
+This package builds against some `% Provided` dependencies, which you may need to include:
+
+```scala
+libraryDependencies += "org.isarnproject" %% "isarn-sketches" % "0.1.2"
+libraryDependencies += "com.twitter" %% "algebird-core" % "0.13.4"
 ```
 
 ### Algebird Aggregators with TDigest
