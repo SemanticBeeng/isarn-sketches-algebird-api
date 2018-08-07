@@ -6,7 +6,7 @@ name := "isarn-sketches-algebird-api"
 
 organization := "org.isarnproject"
 
-version := "0.1.2"
+version := "0.1.3-SNAPSHOT"
 
 scalaVersion := "2.11.12"
 
